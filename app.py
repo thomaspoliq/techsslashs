@@ -1,135 +1,139 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Techsslash Trust Test: Is This Tech Website Worth Your Time?",
+    page_title="Techsslash: UK Tech Guides on AI, Robots, Cloud and Business Software",
     page_icon="🧭",
     layout="centered",
 )
 
-st.title("Techsslash Trust Test: Is This Tech Website Worth Your Time?")
+st.title("Techsslash: UK Tech Guides on AI, Robots, Cloud and Business Software")
 
 st.markdown(
     """
-Search for "techsslash" and you will find a pile of pages that all sound alike. Some
-are helpful. Some are thin. A few repeat the same paragraphs with the name swapped in.
-So instead of telling you what to think, this page gives you a short test you can run on
-any tech site, including this one, in about two minutes.
+If you have searched for "techsslash", you were probably trying to work out what the
+site actually publishes and whether it is useful to you. The short answer is that it
+has grown into a UK-focused library of practical technology guides, with a clear lean
+towards small businesses, home gadgets and the rules that come with them. This page
+walks through what you will find there, who gets the most from it and how to read it
+sensibly.
 
-## Why a test beats a verdict
+## What Techsslash is
 
-A verdict goes out of date the moment a site changes its team, its topics or its
-standards. A test keeps working. Independent reviewers who looked at sites with
-near-identical names have pointed out that ownership details and editorial processes are
-often hard to find, and that readers should be careful about treating such sites as a
-final authority. That advice fits every blog on the web, so it makes sense to turn it
-into something you can actually do.
+Techsslash is an independent technology blog that publishes explainers, buying guides
+and how-to articles. It is not a software product, a shop or an app. The name sounds
+like "tech slash", and you will also see it written as "Techsslaash" on other sites, so
+it is worth checking the full web address before you trust a page that claims to be
+about it.
 
-## How the test works
+The older posts on the site cover a wide mix of subjects, from Android apps and gaming
+software to security and general digital topics. More recent publishing has become more
+focused, and that newer direction is the interesting part.
 
-Open the site you are checking in another tab. Tick each statement below that is true
-for that site. Be strict: if you have to hunt for the evidence, leave the box empty.
+## The topics that now run through the site
+
+Look at the site's recent guides together and four themes stand out.
+
+**Artificial intelligence for ordinary UK organisations.** These guides deal with what
+AI is used for in small firms, how to write an AI usage policy, what governance looks
+like for a business with a handful of staff and how AI tools are showing up in
+accounting, invoicing, fraud checks and website accessibility. The tone is practical
+rather than futuristic, and the examples are written with UK rules in mind.
+
+**Robots in the home and garden.** A large cluster covers robot lawn mowers and robot
+vacuums. Instead of only ranking products, the guides tackle the awkward questions
+owners actually run into: noise rules and neighbours, theft and insurance, wildlife
+safety, maintenance schedules, buying second hand and whether a vacuum and mop combo
+is worth it in a multi-floor house.
+
+**Cloud computing for small businesses.** Here you will find an overview of cloud
+computing in the UK, explanations of costs and security, advice on public versus
+private cloud and a guide to migrating without losing a week of work. There is also
+material on cloud storage with UK servers, which matters if you care where your data
+sits.
+
+**Business software and compliance.** Accounting software for specific organisations,
+cloud versus desktop accounting, workforce management, time tracking for freelancers,
+Making Tax Digital for income tax and software built for healthcare practices all sit
+here. These pages are aimed at people who have to choose a tool and justify the choice.
+
+## Why the UK angle matters
+
+Plenty of tech writing assumes a US reader. Prices are in dollars, regulations are
+American and the retailers are not the ones you shop with. A guide that discusses UK
+neighbour noise expectations for a robot mower, or how a product regulation change
+affects AI-enabled products sold here, saves you the step of translating advice to your
+own situation. That local framing is the strongest reason to bookmark a site like this
+rather than rely only on global tech media.
+
+## Who it suits best
+
+Small business owners and sole traders will get the most from the software, AI and
+cloud material, because those guides are written around real decisions such as what to
+buy, what to document and what to ask a supplier. Homeowners will find the robot
+guides useful because they cover ownership, not just unboxing. Students and curious
+readers can use the "complete guide" style pages as plain-language introductions to a
+topic before they dig into specialist sources.
+
+## Where should you start?
 """
 )
 
-CHECKS = [
-    ("A named author appears on the article, with a short bio or profile.", 2),
-    ("There is an About page that says who runs the site and why it exists.", 2),
-    ("A working contact route exists, such as an email address or contact form.", 1),
-    ("The article shows a publication date or an updated date.", 1),
-    ("Key claims point to a primary source, such as a vendor notice or official documentation.", 3),
-    ("The advice tells you what to back up or check before you change any settings.", 2),
-    ("The page admits limits, for example 'this may differ on your device'.", 1),
-    ("There are no promises of guaranteed fixes, free paid software or easy money.", 3),
-]
-MAX_SCORE = sum(weight for _, weight in CHECKS)
+paths = {
+    "I run a small business": (
+        "Start with the business software overview and the AI guide for small firms. "
+        "Then move on to cloud costs and security, followed by the accounting and "
+        "compliance pieces that match your trade."
+    ),
+    "I am thinking of buying a robot mower or vacuum": (
+        "Read the main buying guide first, then the pages on noise, theft and "
+        "insurance, and maintenance. Wildlife safety is worth a look if you have a "
+        "garden with hedges or a pond."
+    ),
+    "I want to understand AI without the jargon": (
+        "Begin with the complete UK guide to AI, then read the AI usage policy "
+        "template and the governance guide to see how the ideas turn into rules."
+    ),
+    "I am moving to the cloud": (
+        "Use the complete cloud guide as your map, then read the pieces on public "
+        "versus private cloud, security and migration before you commit."
+    ),
+}
 
-score = 0
-for i, (text, weight) in enumerate(CHECKS):
-    if st.checkbox(text, key=f"check_{i}"):
-        score += weight
-
-st.divider()
-
-pct = round(score / MAX_SCORE * 100)
-st.subheader(f"Your score: {score} out of {MAX_SCORE}")
-st.progress(pct / 100)
-
-if score == 0:
-    st.info("Tick the statements that apply and your result will appear here.")
-elif pct >= 80:
-    st.success(
-        "Strong signals. This looks like a site that takes care over its content. "
-        "Still confirm anything involving money, personal data or security with the vendor."
-    )
-elif pct >= 50:
-    st.warning(
-        "Mixed signals. Useful for general reading, but verify important steps "
-        "elsewhere before you act on them."
-    )
-else:
-    st.error(
-        "Weak signals. Treat this page as a rumour, not a source, and look for "
-        "an official or better documented answer."
-    )
+choice = st.selectbox("Pick the description that fits you best:", list(paths.keys()))
+st.info(paths[choice])
 
 st.markdown(
     """
-## What the scores are really telling you
+## How to get the most from any tech guide
 
-The two heaviest items are the primary source check and the no-miracle-promises check,
-each worth three points. That is deliberate. A site can hide its team and still publish a
-correct fix, but a site that promises a guaranteed result or a free copy of paid software
-is giving you a reason to leave. Sources matter for the same reason: if a claim about a
-Windows update or a piece of adware cannot be traced back to something official, you are
-trusting the writer's memory.
-
-Author names and About pages are worth two points each because they give you somebody to
-hold accountable. They do not prove quality, but their absence makes every other check
-harder.
-
-## Try it on a real article
-
-Pick one explainer, say a post about a Windows update number or a guide to spotting
-browser hijackers, and run the test slowly. You will notice patterns quickly. Good
-pages tend to define a term the first time it appears, tell you what to do next and
-mention the situations where the advice might not apply. Weak pages lean on vague
-phrases like "experts say" and never name the experts.
-
-If you want a quick practice run, the
-[tech explainers and security guides at Techsslash](https://techsslash.co.uk/)
-make a handy sample because they cover everyday topics like software updates and unwanted
-adware. Score a couple of posts honestly and see where they land. A fair test should
-sometimes disappoint the site being tested.
-
-## Spelling differences, and why they matter
-
-People type the name several ways, with one "a" or two. Several unrelated sites now use
-near-identical names, so the spelling in a search result tells you very little about
-which website you have landed on. Check the full domain in your address bar before you
-trust anything, and run the test again whenever you switch to a new domain.
+Check the publication date before you act, because software and rules change. Treat
+the guide as a starting point and confirm anything involving tax, insurance, personal
+data or safety with the official source or a qualified professional. That is sensible
+advice for every blog, and it applies here too.
 
 ## Common questions
 
-**Does a high score mean a site is always right?**
-No. It means the site shows the habits that make mistakes easier to spot and correct.
+**Is Techsslash a company that sells software?**
+No. It is a content site that publishes guides, so there is nothing to download or
+subscribe to in order to read it.
 
-**Does a low score mean a site is fake?**
-Not necessarily. Small blogs often lack an About page. A low score simply tells you to
-double check the advice before you follow it.
+**Is it only for UK readers?**
+Anyone can read it, but the examples, rules and prices are written for the UK, so UK
+readers benefit most.
 
-**How often should I repeat the test?**
-Whenever you meet a new site, and occasionally for sites you already use. Teams change,
-and so does quality.
+**Why do I see different spellings of the name?**
+Several unrelated sites use near-identical names. Always check the domain in your
+address bar so you know which site you are on.
 
-**What if I only have a minute?**
-Check three things: is there a named author, does a claim link to an official source, and
-does the page promise anything that sounds too good to be true.
+**How current is the content?**
+Recent guides are dated and updated through 2026, while some older posts date back to
+2025. Check the date on any page before relying on it.
 
 ## Final thoughts
 
-Trust online is built from small, checkable habits rather than big claims. Use this
-test on techsslash pages, on rival blogs and on anything a friend forwards you. Keep your
-own judgement switched on, and treat every guide as a starting point rather than a final
-word.
+Techsslash has moved from a general tech blog towards something more useful: a
+structured set of UK guides on AI, robotics, cloud and business software. If you want a
+sensible place to start, browse the [UK technology guides on Techsslash](https://techsslash.co.uk/)
+and pick the topic that matches the decision you are facing today.
 """
 )
